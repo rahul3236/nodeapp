@@ -1,0 +1,258 @@
+<%- include('partials/main')%>
+    <div id="content-container">	
+          <div id="page-title">
+              <h1 class="page-header text-overflow">Dashboard</h1>
+          </div>
+          <div id="showdiv" class="alert alert-warning" role="alert" style="height:5%;width:15%;position:fixed;top:5%;right:40%">
+            <h3 id ="showmessage" style="margin:0;padding:0"></h3>
+        </div>
+          <div class="tab-base">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div style="border-bottom: 1px solid #ebebeb;padding: 25px 5px 5px 5px;" class="col-md-12">
+                                <button class="addbutton btn btn-primary btn-labeled fa fa-plus-circle pull-right mar-rgt" onclick="ajax_modal('add','Add Category ( Physical Product )','Successfully Added!','category_add','')">
+                                        Create Category                                	</button>
+                            </div>
+                            <br>
+                            <div class="tab-pane fade active in" id="list" style="border:1px solid #ebebeb; border-radius:4px;">	<div class="panel-body" id="demo_s">
+                <div class="bootstrap-table"><div class="fixed-table-toolbar"><div class="columns columns-right btn-group pull-right"><button class="btn btn-default" type="button" onclick="ajax_set_list()" name="refresh" title="Refresh"><i class="fa fa-refresh icon-refresh"></i></button><button class="btn btn-default" type="button" title="%s" onclick="export_it('pdf');">pdf</button><button class="btn btn-default" type="button" title="%s" onclick="export_it('csv');">csv</button><button class="btn btn-default" type="button" title="%s" onclick="export_it('excel');">xls</button></div><div class="pull-right search"><input class="form-control" placeholder="Search" type="text"></div></div><div class="fixed-table-container"><div class="fixed-table-header"><table></table></div><div class="fixed-table-body"><div class="fixed-table-loading" style="top: 37px;">Loading, please wait…</div><table id="demo-table" class="table table-striped table-hover" data-pagination="true" data-show-refresh="true" data-ignorecol="0,2" data-show-toggle="true" data-show-columns="false" data-search="true">
+        
+                    <thead>
+                            
+                        <tr><th style=""><div class="th-inner ">No</div><div class="fht-cell"></div></th><th style=""><div class="th-inner ">Name</div><div class="fht-cell"></div></th><th style=""><div class="th-inner ">Banner</div><div class="fht-cell"></div></th><th class="text-right" style=""><div class="th-inner ">Options</div><div class="fht-cell"></div></th></tr>
+                    </thead>
+                        
+                    <tbody>
+                            <% newarray.forEach(function(loc,index) { %>
+                        <tr>
+                            <td><%=  index+1  %>
+                            </td>
+                            <td><%=  loc.category_name   %></td>
+                            <td>
+                                                <img class="img-md" src="https://fooderia.in/uploads/category_image/category_37.jpg?random=1535388858282" height="100px">  
+                             
+                           </td><td class="text-right" style="">
+                            <a class="editbutton btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal('edit','Edit Category ( Physical Product )','Successfully Edited!','category_edit','37')" data-original-title="Edit" data-container="body">
+                                        Edit                    </a>
+                            <a class="deletebutton btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body">
+                                    Delete                    </a>
+                        </td></tr>
+                        <% }); %>
+                        
+                                        </tbody>
+                </table>
+            </div>
+        
+        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+</div>            
+
+
+<div class="modal" id="addmodal">
+    <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Coupon</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/discountcoupon" 
+                    class="form-horizontal" method="post"
+                     id="addform" enctype="multipart/form-data" accept-charset="utf-8">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" 
+                                for="demo-hor-1">
+                                Add Location
+                                </label>
+                                <div class="col-sm-6">
+                                    <input name="locname" id="locvalue"
+                                    placeholder="Title" class="form-control required" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer"> 
+                       
+                        <Button type="submit" id="sendloc" 
+                        class="btn btn-primary" >
+                        Save 
+                        </Button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="addmodalclose"></button>
+</div>
+              
+
+    <div class=" modal" id="editmodal">
+            <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Coupon</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/discountcoupon" 
+                            class="form-horizontal" method="post"
+                             id="editform" enctype="multipart/form-data" accept-charset="utf-8">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" 
+                                        for="demo-hor-1">
+                                        Coupon Title
+                                        </label>
+                                        <div class="col-sm-6">
+                                            <input name="editlocation" id="" 
+                                            placeholder="Title" class="editlocvalue form-control required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer"> 
+                                <Button type="submit" id="editloc" 
+                                class="btn btn-primary" >
+                                Save 
+                                </Button>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="editmodalclose"  class="modal-close is-large" aria-label="close"></button>
+            </div>
+
+
+            
+             
+                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+$(document).ready(function() {
+$("#showdiv").hide()
+            
+$('.page-number').on('click', function () {
+    window.location.href = "/location/" +$(this).text()
+})
+                  
+$(".addbutton").on('click',function(){
+                        //alert("clicked")
+    $("#addmodal").toggleClass("is-active")
+})
+                  
+                  
+$("#addmodalclose").on('click', function(){
+    $("#addmodal").toggleClass("is-active")
+})
+
+$("#sendloc").on('click',function(){
+    let val = $("#locvalue").val()
+    $.post("/location/addlocation/",
+{
+    val:val
+},
+function (data) {
+$("#showmessage").text("done");
+$("#addmodal").toggleClass("is-active")
+$("#showdiv").fadeIn()
+setTimeout(() => {
+    $("#showdiv").fadeOut()
+        }, 4000);
+    }
+)
+})
+
+$(".editbutton").on('click',function(){
+    alert($(this).attr('id'))
+    let id=$(this).attr('id')
+    $("#editmodal .editlocvalue").attr('id',id)
+                        //alert("clicked")
+    $("#editmodal").toggleClass("is-active")
+})
+                  
+                  
+$("#editmodalclose").on('click', function(){
+    $("#editmodal").toggleClass("is-active")
+})
+
+$("#editloc").on('click',function(){
+    let val = $(".editlocvalue").val()
+    let id=$(".editlocvalue").attr('id')
+    $.post("/location/editlocation/" + id,
+{
+    val:val
+},
+function (data) {
+$("#showmessage").text("done");
+$("#editmodal").toggleClass("is-active")
+$("#showdiv").fadeIn()
+setTimeout(() => {
+    $("#showdiv").fadeOut()
+        }, 4000);
+    }
+)
+})
+
+
+$('.deletebutton').on('click', function(){
+    alert("clicked")
+let id=$(this).attr('id')
+$.post("/location/delete/" + id,
+{
+    id:id
+},
+function (data) {
+    $("#showmessage").text("hello");
+    $("#showdiv").fadeIn()
+    setTimeout(() => {
+    $("#showdiv").fadeOut()
+}, 4000);
+})
+})
+})
+
+                </script>
+                     
+
+
+<%- include('partials/allbottom.ejs') %>

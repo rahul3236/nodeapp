@@ -1,0 +1,6 @@
+discoun_coupon
+sales
+location
+add_offer
+manage admin
+manage -profile

@@ -1,0 +1,93 @@
+<%- include('partials/main')%>
+    <div id="content-container">	
+          <div id="page-title">
+              <h1 class="page-header text-overflow">Dashboard</h1>
+          </div>
+          <div class="tab-base">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane fade active in" id="" style="border:1px solid #ebebeb; border-radius:4px;">
+                                                    <div class="panel-heading">
+                                <h3 class="panel-title">Manage Details</h3>
+                            </div>
+                            <form action="/manageadmin/managedetails" class="form-horizontal" method="post" accept-charset="utf-8">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-1">
+                                            Name                                        	</label>
+                                        <div class="col-sm-6">
+                                            <input name="name" value="FOODERIA FOODWORKS INDIA" id="demo-hor-1" class="form-control required" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-2">
+                                            Email                                        	</label>
+                                        <div class="col-sm-6">
+                                            <input name="email" value="admin@gmail.com" id="demo-hor-2" class="form-control required" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-3">
+                                            Phone                                        	</label>
+                                        <div class="col-sm-6">
+                                            <input name="phone" value="7877007744" id="demo-hor-3" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label" for="demo-hor-4">
+                                            Address                                        	</label>
+                                        <div class="col-sm-6">
+                                            <input name="address" value="" id="demo-hor-4" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-footer text-right">
+                                    <button type="submit">Update Profile</button>
+                                        
+                                </div>
+                            </form>
+    
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Change Password</h3>
+                            </div>
+                                <form action="/manageadmin/changepassword" class="form-horizontal" method="post" accept-charset="utf-8">
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="demo-hor-5">
+                                                Current Password                                            	</label>
+                                            <div class="col-sm-6">
+                                                <input name="password" value="" id="demo-hor-5" class="form-control required" type="password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="demo-hor-6">
+                                                New Password*                                            	</label>
+                                            <div class="col-sm-6">
+                                                <input name="password1" value="" id="demo-hor-6" class="form-control pass pass1 required" type="password">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-3 control-label" for="demo-hor-7">
+                                                Confirm Password                                            	</label>
+                                            <div class="col-sm-6">
+                                                <input name="password2" value="" id="demo-hor-7" class="form-control pass pass2 required" type="password">
+                                            </div>
+                                            <div id="pass_note">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer text-right">
+                                        <button type="submit" class="btn btn-info pass_chng  enterer">
+                                            Update Password
+                                        </button>
+                                    </div>
+                                </form>
+                                                </div>
+                    </div>
+                </div>
+            <!--Panel body-->
+            </div>
+        </div>
+        </div>          
+<%- include('partials/allbottom.ejs') %>

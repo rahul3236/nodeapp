@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>fooderia</title>
+                <!--STYLESHEET-->
+                <!--=================================================-->
+                <!--Roboto Font [ OPTIONAL ]-->
+                <!--Bootstrap Stylesheet [ REQUIRED ]-->
+                
+                
+                
+                <link rel="stylesheet" href="stylesheets/bootstrap.css">
+                
+                <!-- jQuery library -->
+                
+                
+                <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+                <script
+                              src="https://code.jquery.com/jquery-3.3.1.min.js"
+                              integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                              crossorigin="anonymous"></script>
+                <!-- Latest compiled JavaScript -->
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+                <!--Activeit Stylesheet [ REQUIRED ]-->
+                <link href="stylesheets/activeit.css" rel="stylesheet">
+                <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+                
+                
+                <!--Font Awesome [ OPTIONAL ]-->
+                
+                </head>
+<body>
+       <div class="pace-progress-inner"></div>
+      </div>
+      <div class="pace-activity"></div></div>
+          <div id="container" class="cls-container" style="background:url(https://fooderia.in/uploads/others/repeat.jpg) 50% 50% / auto repeat scroll;">
+              <!-- BACKGROUND IMAGE -->
+              <div id="bg-overlay"></div>
+              <!-- LOGIN FORM -->
+              <div class="cls-content">
+                  <div class="cls-content-sm panel panel-colorful panel-login" style="margin-top: 50px !important;">
+                      <div class="panel-body">
+                          <a class="box-inline" href="https://fooderia.in/index.php/">
+                              <img src="https://fooderia.in/uploads/logo_image/logo_79.png" class="log_icon">
+                          </a>
+                          <hr class="hr-log">
+                          <p class="pad-btm">Sign In To Your Account</p>
+                          <form action="https://fooderia.in/index.php/admin/login/" method="post" id="login" accept-charset="utf-8">
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-user" style="color:#FFF !important"></i></div>
+                                      <input name="email" class="form-control" placeholder="Email" type="text">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <div class="input-group-addon"><i class="fa fa-key" style="color:#FFF !important"></i></div>
+                                      <input name="password" class="form-control" placeholder="Password" type="password">
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-xs-6 text-left">
+                                      <div class="pad-ver">
+                                          <a href="#" onclick="ajax_modal('forget_form','Forget Password','Email Sent With New Password!','forget','')" class="btn-link mar-rgt" style="color:#fff !important;">Forgot Password ?</a>
+                                      </div>
+                                  </div>
+                                  <div class="col-xs-6">
+                                      <div class="form-group text-right main_login">
+                                          <span class="btn btn-login btn-labeled fa fa-unlock-alt snbtn" onclick="form_submit('login')">
+                                              Sign In                                    </span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!--jQuery [ REQUIRED ]-->
+          <script src="https://fooderia.in/template/back/js/jquery-2.1.1.min.js"></script>
+          
+          <!--BootstrapJS [ RECOMMENDED ]-->
+          <script src="https://fooderia.in/template/back/js/bootstrap.min.js"></script>
+          
+          <!--Activeit Admin [ RECOMMENDED ]-->
+          <script src="https://fooderia.in/template/back/js/activeit.min.js"></script>
+      
+          <!--Background Image [ DEMONSTRATION ]-->
+          <script src="https://fooderia.in/template/back/js/demo/bg-images.js"></script>
+          
+          <!--Bootbox Modals [ OPTIONAL ]-->
+          <script src="https://fooderia.in/template/back/plugins/bootbox/bootbox.min.js"></script>
+      
+          <!--Demo script [ DEMONSTRATION ]-->
+          <script src="https://fooderia.in/template/back/js/ajax_login.js"></script>
+          
+          <script>
+              var base_url = "https://fooderia.in/";
+              var cancdd = "Cancelled";
+              var req = "This Field Is Required";
+              var sing = "Signing In...";
+              var nps = "New Password Sent To Your Email";
+              var lfil = "Login Failed!";
+              var wrem = "Wrong E-mail Address! Try Again";
+              var lss = "Login Successful!";
+              var sucss = "SUCCESS!";
+              var rpss = "Reset Password";
+              var user_type = "admin";
+              var module = "login";
+              var unapproved = "Account Not Approved. Wait For Approval.";
+              
+              window.addEventListener("keydown", checkKeyPressed, false);
+              function checkKeyPressed(e) {
+                  if (e.keyCode == "13") {
+                      $('body').find(':focus').closest('form').find('.snbtn').click();
+                      if($('body').find('.modal-content').find(':focus').closest('form').closest('.modal-content').length > 0){
+                          $('body').find('.modal-content').find(':focus').closest('form').closest('.modal-content').find('.snbtn_modal').click();
+                      }
+                  }
+              }
+          </script>
+      
+      
+      </body>>
+</html> 

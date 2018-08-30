@@ -1,0 +1,383 @@
+<%- include('partials/main')%>
+    <div id="content-container">	
+          <div id="page-title">
+              <h1 class="page-header text-overflow">Dashboard</h1>
+          </div>
+          <div class="tab-base">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding:10px;">
+                                <button class="btn btn-primary btn-labeled fa fa-plus-circle pull-right" id="creatediscout">
+                                        Create Coupon						</button>
+                            </div>
+                            <div class="tab-pane fade active in" id="list" style="border:1px solid #ebebeb; 
+                                    border-radius:4px;">	
+            <div class="panel-body" id="demo_s">
+                <div class="bootstrap-table"><div class="fixed-table-toolbar"><div class="columns columns-right btn-group pull-right"><button class="btn btn-default" type="button" onclick="ajax_set_list()" name="refresh" title="Refresh"><i class="fa fa-refresh icon-refresh"></i></button><button class="btn btn-default" type="button" title="%s" onclick="export_it('pdf');">pdf</button><button class="btn btn-default" type="button" title="%s" onclick="export_it('csv');">csv</button><button class="btn btn-default" type="button" title="%s" onclick="export_it('excel');">xls</button></div><div class="pull-right search"><input class="form-control" placeholder="Search" type="text"></div></div><div class="fixed-table-container"><div class="fixed-table-header"><table></table></div><div class="fixed-table-body"><table id="demo-table" class="table table-striped table-hover" data-pagination="true" data-show-refresh="true" data-ignorecol="0,4" data-show-toggle="true" data-show-columns="false" data-search="true">
+        
+                    <thead>
+                        <tr><th style=""><div class="th-inner ">No</div><div class="fht-cell"></div></th><th style=""><div class="th-inner ">Title</div><div class="fht-cell"></div></th><th style=""><div class="th-inner ">Code</div><div class="fht-cell"></div></th><th style=""><div class="th-inner ">Added By</div><div class="fht-cell"></div></th><th style=""><div class="th-inner ">Status</div><div class="fht-cell"></div></th><th class="text-right" style=""><div class="th-inner ">Options</div><div class="fht-cell"></div></th></tr>
+                    </thead>
+                        
+                    <tbody>
+            <tr data-index="0">
+                <td style="">1</td>
+                <td style="">5% Off on minimum purchase of Rs. 500</td>
+                <td style="">5OFF</td>
+                <td style="">
+                    FOODERIA FOODWORKS INDIA (admin)
+                </td>
+                <td style="">
+                    <input id="pub_15" class="sw1" data-id="15" style="display: none;" data-switchery="true" type="checkbox"><span class="switchery switchery-default" style="box-shadow: rgb(204, 36, 36) 0px 0px 0px 0px inset; border-color: rgb(204, 36, 36); background-color: rgb(204, 36, 36); transition: border 0.4s ease 0s, box-shadow 0.4s ease 0s;"><small style="left: 0px; background-color: rgb(255, 255, 255); transition: left 0.2s ease 0s;"></small></span>
+                </td>
+                <td class="text-right" style="">
+                    <a class="editbutton btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip">Edit                        </a>
+                                
+                        <a class="deletebutton btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip">Delete                        </a>
+                                
+                </td>
+            </tr></tbody>
+                </table></div><div class="fixed-table-pagination"><div class="pull-left pagination-detail"><span class="pagination-info">Showing 1 to 1 of 1 rows</span><span class="page-list" style="display: none;"><span class="btn-group dropup"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><span class="page-size">10</span> <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li class="active"><a href="javascript:void(0)">10</a></li></ul></span> records per page</span></div><div class="pull-right pagination" style="display: none;"><ul class="pagination"><li class="page-first disabled"><a href="javascript:void(0)">&lt;&lt;</a></li><li class="page-pre disabled"><a href="javascript:void(0)">&lt;</a></li><li class="page-number active disabled"><a href="javascript:void(0)">1</a></li><li class="page-next disabled"><a href="javascript:void(0)">&gt;</a></li><li class="page-last disabled"><a href="javascript:void(0)">&gt;&gt;</a></li></ul></div></div></div></div><div class="clearfix"></div>
+            </div>
+            <div id="coupn"></div>
+            <div id="export-div">
+                <h1 style="display:none;">Coupon</h1>
+                <table id="export-table" data-name="coupon" data-orientation="p" style="display:none;">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Title</th>
+                                <th>Code</th>
+                            </tr>
+                        </thead>
+                            
+                        <tbody>
+                                        <tr>
+                            <td>1</td>
+                            <td>5% Off on minimum purchase of Rs. 500</td>
+                            <td>5OFF</td>
+                        </tr>
+                                        </tbody>
+                </table>
+            </div>
+       
+        
+        
+        
+        
+                   </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>          
+
+
+<div class="modal" id="addmodal">
+        <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Coupon</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/discountcoupon" class="form-horizontal" method="post" id="coupon_add" enctype="multipart/form-data" accept-charset="utf-8">
+                            <div class="panel-body">
+                    
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="demo-hor-1">Coupon Title</label>
+                                    <div class="col-sm-6">
+                                        <input name="title" id="demo-hor-1" placeholder="Title" class="form-control required" type="text">
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="demo-hor-1">Valid Till</label>
+                                    <div class="col-sm-6">
+                                        <input name="till" id="demo-hor-1" class="form-control" type="date">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" style="display:none">
+                                    <label class="col-sm-4 control-label">Coupon Discount On</label>
+                                    <div class="col-sm-6">
+                                        <select name="set_type" onchange="(this.value,this)" class="demo-chosen-select chos" data-placeholder="Choose a set_type" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="all_products">All products</option><option value="category">Category</option><option value="sub_category">Sub category</option><option value="product">Product</option></select><div class="chosen-container chosen-container-single" style="width: 0px;" title=""><a class="chosen-single" tabindex="-1"><span>Choose one</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input autocomplete="off" tabindex="2" type="text"></div><ul class="chosen-results"></ul></div></div>                </div>
+                                </div>
+                                
+                                <div class="form-group category" style="display:none;">
+                                    <label class="col-sm-4 control-label">Category</label>
+                                    <div class="col-sm-6">
+                                        <select name="category[]" onchange="(this.value,this)" class="demo-cs-multiselect" multiple="" data-placeholder="Choose a category" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="25">Indian Food</option><option value="27">Sandwich</option><option value="30">Maggie Point</option><option value="32">Starters </option><option value="36">Pasta</option><option value="37">Noodles</option></select><div class="chosen-container chosen-container-multi" style="width: 100%;" title=""><ul class="chosen-choices"><li class="search-field"><input value="Choose a category" class="default" autocomplete="off" style="width: 90px;" tabindex="2" type="text"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>                </div>
+                                </div>
+                                
+                                <div class="form-group sub_category" style="display:none;">
+                                    <label class="col-sm-4 control-label">Sub Category</label>
+                                    <div class="col-sm-6">
+                                        <select name="sub_category[]" onchange="(this.value,this)" class="demo-cs-multiselect" multiple="" data-placeholder="Choose a sub_category" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="74">Paneer </option><option value="75">Dal</option><option value="76">Kofta</option><option value="77">Mushroom</option><option value="78">Roti</option><option value="79">Naan</option><option value="80">Rice</option><option value="82">Sabji</option><option value="84">Sandwich</option><option value="85">Pizza</option><option value="86">Chap</option><option value="87">Raita</option><option value="88">Salad</option><option value="90">Maggie</option><option value="91">Starters</option><option value="92">Pizza</option><option value="96">Thali</option><option value="94">Pasta</option><option value="95">Noodles</option></select><div class="chosen-container chosen-container-multi" style="width: 100%;" title=""><ul class="chosen-choices"><li class="search-field"><input value="Choose a sub_category" class="default" autocomplete="off" style="width: 90px;" tabindex="2" type="text"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>                </div>
+                                </div>
+                                
+                                <div class="form-group product" style="display:none;">
+                                    <label class="col-sm-4 control-label">Product</label>
+                                    <div class="col-sm-6">
+                                        <select name="product[]" onchange="(this.value,this)" class="demo-cs-multiselect" multiple="" data-placeholder="Choose a product" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="338">White Sauce Pasta</option><option value="178">Kadhai Paneer</option><option value="169">Shahi Paneer</option><option value="339">Veg Chowmein</option><option value="171">Matar Paneer</option><option value="172">Methi Malai Paneer</option><option value="364">Paneer Tikka Lababdar</option><option value="365">Paneer Makhni</option><option value="366">Dum Paneer Kali Mirch</option><option value="176">Paneer Lababdar</option><option value="337">Red Sauce Pasta</option><option value="179">Paneer Do Pyaza</option><option value="182">Cheese Tomato</option><option value="183">Paneer Chatpata</option><option value="188">Paneer Fooderia</option><option value="189">Paneer Butter Masala</option><option value="191">Dal Fry</option><option value="192">Dal Tadka</option><option value="193">Dal Makhni</option><option value="196">Malai Kofta</option><option value="199">Mushroom Masala</option><option value="200">Mushroom Do Pyaza</option><option value="368">Mushroom Rara</option><option value="369">Peas Pulao</option><option value="203">Plain Roti</option><option value="204">Butter Roti</option><option value="205">Missi Roti</option><option value="207">Laccha Pratha</option><option value="214">Butter Naan</option><option value="215">Garlic Naan</option><option value="216">Amritsari Kulcha</option><option value="217">Stuffed Naan</option><option value="218">Plain Rice</option><option value="219">Jeera Rice</option><option value="221">Veg Pulao</option><option value="222">Kashmiri Pulao</option><option value="223">Veg Dum Biryani</option><option value="374">Baby Corn Chilli </option><option value="233">Aloo Gobhi</option><option value="363">Corn Capsicum Masala</option><option value="240">Veg Navratan Korma</option><option value="241">Kadhai Veg</option><option value="246">Mix Veg</option><option value="357">Cheese Grill Sandwich</option><option value="249">Dum Aloo Banarasi</option><option value="362">Stuffed Tomato</option><option value="251">Chana Masala</option><option value="352">Kadhi Pakora</option><option value="353">Aloo Tamatar</option><option value="355">Bundi Raita</option><option value="356">Maxican Sandwich</option><option value="257">Veg Sandwich</option><option value="259">Veg Grill Sandwich</option><option value="260">Tandoori Sandwich</option><option value="269">Soya Chap Curry</option><option value="270">Malai Chap Curry</option><option value="272">Plain Dahi</option><option value="273">Veg Raita</option><option value="274">Aloo Mint Raita</option><option value="275">Pineapple Raita</option><option value="276">Mix Fruit Raita</option><option value="278">Ever Green Salad</option><option value="350">Dal Handi</option><option value="284">Masala Maggie</option><option value="287">Veggie Maggie</option><option value="292">Tandoori Maggie</option><option value="293">Fooderia Maggie</option><option value="297">Spring Roll</option><option value="359">Methi Pratha</option><option value="302">French Fries</option><option value="370">Cheese Balls</option><option value="371">Peanut Masala</option><option value="372">Honey Chilli Cauliflower</option><option value="373">Chana Pataka Masala</option><option value="308">Manchurian</option><option value="310">Honey Chilli Potato</option><option value="311">Mushroom Chilli </option><option value="317">Paneer 65</option><option value="318">Cheese Chilli</option><option value="348">Shahi Thali</option><option value="349">Fooderia Thali</option><option value="327">Veggie Pizza</option><option value="331">Slicy Paneer Pizza</option><option value="333">Fooderia Pizza</option><option value="340">Hakka Noodles</option><option value="342">Paneer Noodles</option><option value="343">Cheese Garlic Noodles</option><option value="367">Veg Kofta</option><option value="344">Cucumber Salad</option><option value="358">Malai Pyaz Roti</option></select><div class="chosen-container chosen-container-multi" style="width: 100%;" title=""><ul class="chosen-choices"><li class="search-field"><input value="Choose a product" class="default" autocomplete="off" style="width: 90px;" tabindex="2" type="text"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>                </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="demo-hor-1">Coupon Code</label>
+                                    <div class="col-sm-6">
+                                        <input name="code" id="demo-hor-1" placeholder="Code" class="form-control required" type="text">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">Discount Type</label>
+                                    <div class="col-sm-6">
+                                        <select name="discount_type" onchange="(this.value,this)" class="demo-chosen-select required" data-placeholder="Choose a discount_type" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="percent">Percent</option><option value="amount">Amount</option></select><div class="chosen-container chosen-container-single" style="width: 108px;" title=""><a class="chosen-single" tabindex="-1"><span>Choose one</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input autocomplete="off" tabindex="2" type="text"></div><ul class="chosen-results"></ul></div></div>                </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="demo-hor-1">Discount Value</label>
+                                    <div class="col-sm-6">
+                                        <input name="discount_value" id="demo-hor-1" placeholder="Discount Value" class="form-control required" type="number">
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="demo-hor-1">Minimum Amount</label>
+                                    <div class="col-sm-6">
+                                        <input name="minimum_amount" id="demo-hor-1" placeholder="Minimum Amount" class="form-control required" type="number">
+                                    </div>
+                                </div>
+                                    <div class="form-group">
+                                    <label class="col-sm-4 control-label" for="demo-hor-2">
+                                        Image<span style="color:red">*</span>
+                                    </label>
+                                    <div class="col-sm-6">
+                                        <span class="pull-left btn btn-default btn-file">
+                                            Image Image Size ( 150*150 )
+                                            <input name="img" id="imgInp" accept="image" class="required" type="file">
+                                        </span>
+                                        <br><br>
+                                        <span id="wrap" class="pull-left">
+                                            <img src="https://fooderia.in/uploads/category_image/default.jpg" id="blah" width="100%">
+                                        </span>
+                                    </div>
+                                </div>
+                                <Button type="submit" id="senddis" 
+                                class="btn btn-primary" >
+                                Save 
+                                </Button>   
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close" id="addmodalclose"></button>
+    </div>
+                  
+    
+        <div class=" modal" id="editmodal">
+                <div class="modal-background"></div>
+                    <div class="modal-content">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add Coupon</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/discountcoupon" class="form-horizontal" method="post" id="coupon_add" enctype="multipart/form-data" accept-charset="utf-8">
+                                    <div class="panel-body">
+                            
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="demo-hor-1">Coupon Title</label>
+                                            <div class="col-sm-6">
+                                                <input name="title"  placeholder="Title" class="form-control required" type="text">
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="demo-hor-1">Valid Till</label>
+                                            <div class="col-sm-6">
+                                                <input name="till" class="form-control" type="date">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group" style="display:none">
+                                            <label class="col-sm-4 control-label">Coupon Discount On</label>
+                                            <div class="col-sm-6">
+                                                <select name="set_type"  class="demo-chosen-select chos" data-placeholder="Choose a set_type" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="all_products">All products</option><option value="category">Category</option><option value="sub_category">Sub category</option><option value="product">Product</option></select><div class="chosen-container chosen-container-single" style="width: 0px;" title=""><a class="chosen-single" tabindex="-1"><span>Choose one</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input autocomplete="off" tabindex="2" type="text"></div><ul class="chosen-results"></ul></div></div>                </div>
+                                        </div>
+                                        
+                                        <div class="form-group category" style="display:none;">
+                                            <label class="col-sm-4 control-label">Category</label>
+                                            <div class="col-sm-6">
+                                                <select name="category[]" onchange="(this.value,this)" class="demo-cs-multiselect" multiple="" data-placeholder="Choose a category" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="25">Indian Food</option><option value="27">Sandwich</option><option value="30">Maggie Point</option><option value="32">Starters </option><option value="36">Pasta</option><option value="37">Noodles</option></select><div class="chosen-container chosen-container-multi" style="width: 100%;" title=""><ul class="chosen-choices"><li class="search-field"><input value="Choose a category" class="default" autocomplete="off" style="width: 90px;" tabindex="2" type="text"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>                </div>
+                                        </div>
+                                        
+                                        <div class="form-group sub_category" style="display:none;">
+                                            <label class="col-sm-4 control-label">Sub Category</label>
+                                            <div class="col-sm-6">
+                                                <select name="sub_category[]" onchange="(this.value,this)" class="demo-cs-multiselect" multiple="" data-placeholder="Choose a sub_category" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="74">Paneer </option><option value="75">Dal</option><option value="76">Kofta</option><option value="77">Mushroom</option><option value="78">Roti</option><option value="79">Naan</option><option value="80">Rice</option><option value="82">Sabji</option><option value="84">Sandwich</option><option value="85">Pizza</option><option value="86">Chap</option><option value="87">Raita</option><option value="88">Salad</option><option value="90">Maggie</option><option value="91">Starters</option><option value="92">Pizza</option><option value="96">Thali</option><option value="94">Pasta</option><option value="95">Noodles</option></select><div class="chosen-container chosen-container-multi" style="width: 100%;" title=""><ul class="chosen-choices"><li class="search-field"><input value="Choose a sub_category" class="default" autocomplete="off" style="width: 90px;" tabindex="2" type="text"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>                </div>
+                                        </div>
+                                        
+                                        <div class="form-group product" style="display:none;">
+                                            <label class="col-sm-4 control-label">Product</label>
+                                            <div class="col-sm-6">
+                                                <select name="product[]" onchange="(this.value,this)" class="demo-cs-multiselect" multiple="" data-placeholder="Choose a product" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="338">White Sauce Pasta</option><option value="178">Kadhai Paneer</option><option value="169">Shahi Paneer</option><option value="339">Veg Chowmein</option><option value="171">Matar Paneer</option><option value="172">Methi Malai Paneer</option><option value="364">Paneer Tikka Lababdar</option><option value="365">Paneer Makhni</option><option value="366">Dum Paneer Kali Mirch</option><option value="176">Paneer Lababdar</option><option value="337">Red Sauce Pasta</option><option value="179">Paneer Do Pyaza</option><option value="182">Cheese Tomato</option><option value="183">Paneer Chatpata</option><option value="188">Paneer Fooderia</option><option value="189">Paneer Butter Masala</option><option value="191">Dal Fry</option><option value="192">Dal Tadka</option><option value="193">Dal Makhni</option><option value="196">Malai Kofta</option><option value="199">Mushroom Masala</option><option value="200">Mushroom Do Pyaza</option><option value="368">Mushroom Rara</option><option value="369">Peas Pulao</option><option value="203">Plain Roti</option><option value="204">Butter Roti</option><option value="205">Missi Roti</option><option value="207">Laccha Pratha</option><option value="214">Butter Naan</option><option value="215">Garlic Naan</option><option value="216">Amritsari Kulcha</option><option value="217">Stuffed Naan</option><option value="218">Plain Rice</option><option value="219">Jeera Rice</option><option value="221">Veg Pulao</option><option value="222">Kashmiri Pulao</option><option value="223">Veg Dum Biryani</option><option value="374">Baby Corn Chilli </option><option value="233">Aloo Gobhi</option><option value="363">Corn Capsicum Masala</option><option value="240">Veg Navratan Korma</option><option value="241">Kadhai Veg</option><option value="246">Mix Veg</option><option value="357">Cheese Grill Sandwich</option><option value="249">Dum Aloo Banarasi</option><option value="362">Stuffed Tomato</option><option value="251">Chana Masala</option><option value="352">Kadhi Pakora</option><option value="353">Aloo Tamatar</option><option value="355">Bundi Raita</option><option value="356">Maxican Sandwich</option><option value="257">Veg Sandwich</option><option value="259">Veg Grill Sandwich</option><option value="260">Tandoori Sandwich</option><option value="269">Soya Chap Curry</option><option value="270">Malai Chap Curry</option><option value="272">Plain Dahi</option><option value="273">Veg Raita</option><option value="274">Aloo Mint Raita</option><option value="275">Pineapple Raita</option><option value="276">Mix Fruit Raita</option><option value="278">Ever Green Salad</option><option value="350">Dal Handi</option><option value="284">Masala Maggie</option><option value="287">Veggie Maggie</option><option value="292">Tandoori Maggie</option><option value="293">Fooderia Maggie</option><option value="297">Spring Roll</option><option value="359">Methi Pratha</option><option value="302">French Fries</option><option value="370">Cheese Balls</option><option value="371">Peanut Masala</option><option value="372">Honey Chilli Cauliflower</option><option value="373">Chana Pataka Masala</option><option value="308">Manchurian</option><option value="310">Honey Chilli Potato</option><option value="311">Mushroom Chilli </option><option value="317">Paneer 65</option><option value="318">Cheese Chilli</option><option value="348">Shahi Thali</option><option value="349">Fooderia Thali</option><option value="327">Veggie Pizza</option><option value="331">Slicy Paneer Pizza</option><option value="333">Fooderia Pizza</option><option value="340">Hakka Noodles</option><option value="342">Paneer Noodles</option><option value="343">Cheese Garlic Noodles</option><option value="367">Veg Kofta</option><option value="344">Cucumber Salad</option><option value="358">Malai Pyaz Roti</option></select><div class="chosen-container chosen-container-multi" style="width: 100%;" title=""><ul class="chosen-choices"><li class="search-field"><input value="Choose a product" class="default" autocomplete="off" style="width: 90px;" tabindex="2" type="text"></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div></div>                </div>
+                                        </div>
+                            
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="demo-hor-1">Coupon Code</label>
+                                            <div class="col-sm-6">
+                                                <input name="code"  placeholder="Code" class="form-control required" type="text">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">Discount Type</label>
+                                            <div class="col-sm-6">
+                                                <select name="discount_type" onchange="(this.value,this)" class="demo-chosen-select required" data-placeholder="Choose a discount_type" tabindex="-1" data-hide-disabled="true" style="display: none;"><option value="">Choose one</option><option value="percent">Percent</option><option value="amount">Amount</option></select><div class="chosen-container chosen-container-single" style="width: 108px;" title=""><a class="chosen-single" tabindex="-1"><span>Choose one</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input autocomplete="off" tabindex="2" type="text"></div><ul class="chosen-results"></ul></div></div>                </div>
+                                        </div>
+                            
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="demo-hor-1">Discount Value</label>
+                                            <div class="col-sm-6">
+                                                <input name="discount_value"  placeholder="Discount Value" class="form-control required" type="number">
+                                            </div>
+                                        </div>
+                                         <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="demo-hor-1">Minimum Amount</label>
+                                            <div class="col-sm-6">
+                                                <input name="minimum_amount"  placeholder="Minimum Amount" class="form-control required" type="number">
+                                            </div>
+                                        </div>
+                                            <div class="form-group">
+                                            <label class="col-sm-4 control-label" for="demo-hor-2">
+                                                Image<span style="color:red">*</span>
+                                            </label>
+                                            <div class="col-sm-6">
+                                                <span class="pull-left btn btn-default btn-file">
+                                                    Image Image Size ( 150*150 )
+                                                    <input name="img" id="imgInp" accept="image" class="required" type="file">
+                                                </span>
+                                                <br><br>
+                                                <span id="wrap" class="pull-left">
+                                                    <img src="https://fooderia.in/uploads/category_image/default.jpg" id="blah" width="100%">
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <Button type="submit" id="editdis" 
+                                        class="btn btn-primary" >
+                                        Save 
+                                        </Button>   
+                                    </div>
+                                </form>  
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <button id="editmodalclose"  class="modal-close is-large" aria-label="close"></button>
+                </div>
+    
+    
+                
+                 
+                         
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script>
+    $(document).ready(function() {
+    $("#showdiv").hide()
+                
+    $('.page-number').on('click', function () {
+        window.location.href = "/location/" +$(this).text()
+    })
+                      
+    $("#creatediscout").on('click',function(){
+                alert("clicked")
+        $("#addmodal").toggleClass("is-active")
+    })
+                      
+                      
+    $("#addmodalclose").on('click', function(){
+        $("#addmodal").toggleClass("is-active")
+    })
+    
+    $(".editbutton").on('click',function(){
+        $("#editmodal").toggleClass("is-active")
+        window.idtochange=$(this).attr('id')
+        alert(window.idtochange)
+    })
+                      
+                      
+    $("#editmodalclose").on('click', function(){
+        $("#editmodal").toggleClass("is-active")
+    })
+    
+    $('.deletebutton').on('click', function(){
+        alert(window.idtochange)
+    let id=$(this).attr('id')
+    $.post("/location/delete/" + id,
+    {
+        id:id
+    },
+    function (data) {
+        $("#showmessage").text("hello");
+        $("#showdiv").fadeIn()
+        setTimeout(() => {
+        $("#showdiv").fadeOut()
+    }, 4000);
+    })
+    })
+    })
+    
+                    </script>
+
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function(){
+        $("#sendcoupon").on('click',function(){
+        $("#coupon_add").submit()
+    })
+})
+        
+</script>
+
+<%- include('partials/allbottom.ejs') %>

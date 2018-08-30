@@ -1,0 +1,86 @@
+<%- include('partials/main')%>
+    <div id="content-container">	
+          <div id="page-title">
+              <h1 class="page-header text-overflow">Dashboard</h1>
+          </div>
+          <div class="tab-base">
+                <span id="err_succ"></span>
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="tab-content">
+                            <div class="col-md-12"></div>
+                            
+                            <br>
+                            <!-- LIST -->
+                          <!--  <button class="btn btn-primary btn-labeled fa fa-plus-circle pull-right" onclick="ajax_modal2('add','Add Sale','Successfully Added!','sales_add','')">Create Sales</button> -->
+                           <a href="https://fooderia.in/index.php/admin/add_sales" class="btn btn-primary btn-labeled fa fa-plus-circle pull-right">Create Sales</a>
+                            <div class="tab-pane fade active in" style="border:1px solid #ebebeb; border-radius:4px;">
+                                <div class="panel-body" id="demo_s">
+                                    <table id="demo-table11" class="table table-striped" data-pagination="true" data-show-refresh="true" data-show-toggle="true" data-show-columns="true" data-search="true">
+                                        <thead>
+                                           <form id="myForm" action="https://fooderia.in/admin/delete_all" method="post"></form>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Sale Code</th>
+                                                <th>Phone</th>
+                                                <th>Date</th>
+                                                <th>Delivery Status</th>
+                                                <th>Payment Status</th>
+                                                <th>Type</th>
+                                                <th>Options</th>
+                                                 <th id="ch" style="display:none;"><button type="submit" id="del" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button></th> 
+                                               </tr>
+                                        </thead>                
+                                        <tbody>
+                                            <% newarray.forEach(function(loc,index) { %>
+                                           
+                                                           <tr>
+                                            <td><%= index+1 %></td>
+                                            <td><%= loc.sale_code %></td>
+                                            <td><%= loc.shipping_address.phone %></td>
+                                            
+                                            <td><%= loc.sale_datetime %></td> 
+                                           <td>
+                        <div class="label label-danger">
+                            <%= loc.delivery_status %>                </div>
+                        <br>
+                        </td>
+                                             <td>
+                          
+                        
+                        <div class="label label-danger">
+                                <%- JSON.stringify(loc.payment_status).status %> 
+                            </div>
+                        <br>
+                                    </td>
+                              <td><%= loc.shipping_address.payment_type %></td>
+        
+                                             <td class="text-right">
+        
+                         <a href="javascript:void('0')" data-idd="4634" data-toggle="modal" data-target="#myModal" class="btn btn-info btn-xs btn-labeled fa fa-file-text" data-original-title="Edit" data-container="body">Full Invoice                </a>
+        
+            
+                        <a class="btn btn-success btn-xs btn-labeled fa fa-usd" >
+                                    Delivery Status                </a>
+                        
+                       <a id="4634"  class="btn btn-danger btn-xs btn-labeled fa fa-trash" >Delete                </a>
+                    </td>  
+                   <td><input name="delete[]" value="4634" type="checkbox"></td>                                
+                                            
+                      </tr>
+                   <% }); %>
+                                                          
+                                       
+                                        
+                                        </tbody>
+                                    </table>
+                                    <center><p></p><ul class="pagination" id="search_page_pagination"><li class="active"><a href="javascript:void(0)">1</a></li><li><a href="https://fooderia.in/index.php/admin/manage_sales/10" data-ci-pagination-page="10">2</a></li><li><a href="https://fooderia.in/index.php/admin/manage_sales/20" data-ci-pagination-page="20">3</a></li><li><a href="https://fooderia.in/index.php/admin/manage_sales/30" data-ci-pagination-page="30">4</a></li><li><a href="https://fooderia.in/index.php/admin/manage_sales/40" data-ci-pagination-page="40">5</a></li><li><a href="https://fooderia.in/index.php/admin/manage_sales/50" data-ci-pagination-page="50">6</a></li><li><a href="https://fooderia.in/index.php/admin/manage_sales/10" data-ci-pagination-page="10"><span class="glyphicon glyphicon-forward glyphicon " aria-hidden="true"></span></a></li></ul><p></p></center>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>       
+</div>
+<%- include('partials/allbottom.ejs') %>

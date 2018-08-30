@@ -1,0 +1,312 @@
+<%- include('partials/main')%>
+<div id="content-container">	
+        
+    <div id="showdiv" class="alert alert-warning" role="alert" style="height:5%;width:15%;position:fixed;top:5%;right:40%">
+        <h3 id ="showmessage" style="margin:0;padding:0"></h3>
+    </div>
+    <div id="page-title">
+            <h1 class="page-header text-overflow">Dashboard</h1>
+    </div>
+        <div class="tab-base">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="col-md-12" style="border-bottom: 1px solid #ebebeb;padding:10px;position:relative;top:10px; ">
+                            <button 
+                            class="addbutton btn btn-primary btn-labeled fa fa-plus-circle pull-right">
+                            Add location Coupon
+                        	</button>
+                        </div>
+                        <br /> 
+                        <div class="tab-pane fade active in" id="list"
+                         style="border:1px solid #ebebeb; border-radius:4px;">
+                            <div class="panel-body" id="demo_s">
+                                <div class="bootstrap-table">
+                                    <div class="fixed-table-toolbar">
+                                        <div class="columns columns-right btn-group pull-right">
+                                            <button class="btn btn-default"
+                                             type="button">
+                                             <i class="fa fa-refresh icon-refresh">
+
+                                             </i>
+                                            </button>
+                                            <button class="btn btn-default" type="button" title="%s">
+                                                pdf
+                                            </button>
+                                            <button class="btn btn-default" type="button" title="%s">
+                                                csv
+                                            </button>
+                                            <button class="btn btn-default" type="button" title="%s">
+                                                xls
+                                            </button>
+                                        </div>
+                                        <div class="pull-right search">
+                                            <input class="form-control" placeholder="Search" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="fixed-table-container">
+                                        <div class="fixed-table-header">
+                                            <table>
+
+                                            </table>
+                                        </div>
+                                        <div class="fixed-table-body">
+                                            <table id="demo-table" 
+                                            class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        <div class="th-inner ">
+                                                            No
+                                                        </div>
+                                                        <div class="fht-cell">
+
+                                                        </div>
+                                                    </th>
+                                                    <th style="">
+                                                        <div class="th-inner ">Name</div><div class="fht-cell"></div></th><th class="text-right" style=""><div class="th-inner ">Options</div><div class="fht-cell"></div></th></tr>
+                  </thead>				
+                  <tbody>
+                        <% newarray.forEach(function(loc,index) { %>
+                            <tr data-index="3">
+                                <td><%= index+1 %>
+                                </td>
+                                <td>
+                                    <%=loc.location_name %>
+                                </td>
+                                <td class="text-right">
+                                <button id='<%=loc.location_id%>'
+                        class="editbutton btn btn-primary btn-labeled fa fa-plus-circle"
+                        type="button"
+                        data-target="#editlocationmodel"
+                        >
+                                
+                            Edit						
+                                </button>         
+                                <button id='<%=loc.location_id%>' 
+                                    class="deletebutton btn btn-primary btn-labeled fa fa-plus-circle ">
+                                Delete						
+                                </button>         
+                                                 
+                      </td>
+                    </tr>
+                      <% }); %>
+                    
+                    </tbody>
+              </table>
+            </div>
+            <div class="fixed-table-pagination"><div class="pull-left pagination-detail"><span class="pagination-info">Showing 1 to 10 of 62 rows</span><span class="page-list"><span class="btn-group dropup"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="page-size">10</span> <span class="caret"></span></button><ul class="dropdown-menu" role="menu"><li class="active"><a href="javascript:void(0)">10</a></li><li><a href="javascript:void(0)">25</a></li><li><a href="javascript:void(0)">50</a></li></ul></span> records per page</span></div><div class="pull-right pagination"><ul class="pagination"><li class="page-first disabled"><a href="javascript:void(0)">&lt;&lt;</a></li><li class="page-pre disabled"><a href="javascript:void(0)">&lt;</a></li><li class="page-number active disabled"><a href="javascript:void(0)">1</a></li><li class="page-number"><a href="javascript:void(0)">2</a></li><li class="page-number"><a href="javascript:void(0)">3</a></li><li class="page-number"><a href="javascript:void(0)">4</a></li><li class="page-number"><a href="javascript:void(0)">5</a></li><li class="page-next"><a href="javascript:void(0)">&gt;</a></li><li class="page-last"><a href="javascript:void(0)">&gt;&gt;</a></li></ul></div></div></div></div><div class="clearfix"></div>
+          </div>
+          
+          </div>
+      
+      </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+ 
+          
+          
+<div class="modal" id="addmodal">
+    <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Coupon</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/discountcoupon" 
+                    class="form-horizontal" method="post"
+                     id="addform" enctype="multipart/form-data" accept-charset="utf-8">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" 
+                                for="demo-hor-1">
+                                Add Location
+                                </label>
+                                <div class="col-sm-6">
+                                    <input name="locname" id="locvalue"
+                                    placeholder="Title" class="form-control required" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer"> 
+                       
+                        <Button type="submit" id="sendloc" 
+                        class="btn btn-primary" >
+                        Save 
+                        </Button>   
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" aria-label="close" id="addmodalclose"></button>
+</div>
+              
+
+    <div class=" modal" id="editmodal">
+            <div class="modal-background"></div>
+                <div class="modal-content">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Coupon</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/discountcoupon" 
+                            class="form-horizontal" method="post"
+                             id="editform" enctype="multipart/form-data" accept-charset="utf-8">
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-4 control-label" 
+                                        for="demo-hor-1">
+                                        Coupon Title
+                                        </label>
+                                        <div class="col-sm-6">
+                                            <input name="editlocation" id="" 
+                                            placeholder="Title" class="editlocvalue form-control required" type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="modal-footer"> 
+                                <Button type="submit" id="editloc" 
+                                class="btn btn-primary" >
+                                Save 
+                                </Button>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="editmodalclose"  class="modal-close is-large" aria-label="close"></button>
+            </div>
+
+
+            
+             
+                     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+$(document).ready(function() {
+$("#showdiv").hide()
+            
+$('.page-number').on('click', function () {
+    window.location.href = "/location/" +$(this).text()
+})
+                  
+$(".addbutton").on('click',function(){
+                        //alert("clicked")
+    $("#addmodal").toggleClass("is-active")
+})
+                  
+                  
+$("#addmodalclose").on('click', function(){
+    $("#addmodal").toggleClass("is-active")
+})
+
+$("#sendloc").on('click',function(){
+    let val = $("#locvalue").val()
+    $.post("/location/addlocation/",
+{
+    val:val
+},
+function (data) {
+$("#showmessage").text("done");
+$("#addmodal").toggleClass("is-active")
+$("#showdiv").fadeIn()
+setTimeout(() => {
+    $("#showdiv").fadeOut()
+        }, 4000);
+    }
+)
+})
+
+$(".editbutton").on('click',function(){
+    alert($(this).attr('id'))
+    let id=$(this).attr('id')
+    $("#editmodal .editlocvalue").attr('id',id)
+                        //alert("clicked")
+    $("#editmodal").toggleClass("is-active")
+})
+                  
+                  
+$("#editmodalclose").on('click', function(){
+    $("#editmodal").toggleClass("is-active")
+})
+
+$("#editloc").on('click',function(){
+    let val = $(".editlocvalue").val()
+    let id=$(".editlocvalue").attr('id')
+    $.post("/location/editlocation/" + id,
+{
+    val:val
+},
+function (data) {
+$("#showmessage").text("done");
+$("#editmodal").toggleClass("is-active")
+$("#showdiv").fadeIn()
+setTimeout(() => {
+    $("#showdiv").fadeOut()
+        }, 4000);
+    }
+)
+})
+
+
+$('.deletebutton').on('click', function(){
+    alert("clicked")
+let id=$(this).attr('id')
+$.post("/location/delete/" + id,
+{
+    id:id
+},
+function (data) {
+    $("#showmessage").text("hello");
+    $("#showdiv").fadeIn()
+    setTimeout(() => {
+    $("#showdiv").fadeOut()
+}, 4000);
+})
+})
+})
+
+                </script>
+                     
+<%- include('partials/allbottom.ejs') %>

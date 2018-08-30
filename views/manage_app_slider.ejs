@@ -1,0 +1,447 @@
+<%- include('partials/main')%>
+<div id="content-container">	
+      <div id="page-title">
+          <h1 class="page-header text-overflow">Dashboard</h1>
+      </div>
+
+<div id="page-content">
+
+    	
+        <div class="row">
+                 <div class="col-md-12 col-lg-12">
+                     <div class="panel panel-bordered panel-success">
+                         <div class="panel-heading">
+                             <h3 class="panel-title">Add Offer</h3>
+                         </div>
+                         <div class="panel-body">
+     
+                                              
+     
+     
+                                <form action="https://fooderia.in/index.php/admin/add_offer" method="post" enctype="multipart/form-data">
+                             
+     
+                               <div class="form-group">
+                                 <label for="pwd">Message:</label>
+                                <input class="form-control" id="message" name="message" value="" required="" type="text">
+                               </div>
+     
+                               <div class="form-group">
+                                 <label for="pwd">Title:</label>
+                                <input class="form-control" id="product_heading" name="title" value="" required="" type="text">
+                               </div>
+     
+                                <div class="form-group">
+                                 <label for="pwd">Image Url:</label>
+                                <input class="form-control" id="product_heading" name="image" value="" required="" type="file">
+                               </div>
+     
+     
+                             
+     
+     
+                               <button type="submit" class="btn btn-success">Add </button>
+                             </form>
+                         </div>
+                     </div>
+                 </div>
+     
+             </div>
+     
+           <!--   <div class="row">
+                 <div class="col-md-12 col-lg-12">
+                     <table id="example" class="display nowrap" cellspacing="0" width="100%">
+                         <thead>
+                             <tr>
+                                 <th>S.no</th>
+                                 <th>Warranty Contant</th>
+                                 
+                             </tr>
+                         </thead>
+                         <tbody>
+     
+                         </tbody>
+                     </table>    
+                 </div>
+             </div> -->
+     
+             <script>
+               $(function () {
+     
+                 $('#char').keypress(function (e) {
+                   var max = 250;
+                   var len = $(this).val().length;
+                   if (len >= max) {
+                     $('#charNum').text(' you have reached the limit');
+                     e.preventDefault();
+                   } else {
+                     var char = max - len;
+                     $('#charNum').text(char + ' characters left');
+                   }
+                 });
+     
+                 $('#char2').keypress(function (e) {
+                   var max = 250;
+                   var len = $(this).val().length;
+                   if (len >= max) {
+                     $('#charNum_2').text(' you have reached the limit');
+                     e.preventDefault();
+                   } else {
+                     var char = max - len;
+                     $('#charNum_2').text(char + ' characters left');
+                   }
+                 });
+     
+                 $('#add_contact').on('submit', function (e) {
+     
+                   e.preventDefault();
+     
+                   $.ajax({
+                     type: 'post',
+                     url: 'https://fooderia.in/admin/add_contact',
+                     data: $('#add_contact').serialize(),
+                     success: function (data) {
+                         //alert(data);
+                         if(data == 'success')
+                         {
+                             $('#example').DataTable().ajax.reload();
+                             $('#add_contact')[0].reset();
+                             $('#message').text(data);
+                             $("#message" ).fadeOut(4000);
+                         }
+                         else if(data == 'error')
+                         {
+                             $('#message').text(data);
+                             $("#message" ).fadeOut(4000);
+                         }
+                         else
+                         {
+                             var obj = $.parseJSON(data);
+     
+                           if(obj['contact_name']!=null)
+                           {                               
+                               $('#message').text("");
+                               $('#message').html(obj['contact_name']);
+                               $('#message').append(obj['contact_number']);
+                               //$('#message').append(obj['slider_desc']);
+                           }
+                           else
+                           {                               
+                               $('#message').text("");
+                               $('#message').html(obj); 
+                           }
+                         }
+                     }
+                   });
+     
+                 });
+     
+                 $('#send_msg').on('submit', function (e) {
+     
+                   e.preventDefault();
+     
+                   $.ajax({
+                     type: 'post',
+                     url: 'https://fooderia.in/admin/send_sms_single',
+                     data: $('#send_msg').serialize(),
+                     success: function (data) {
+                         //alert(data);
+                         if(data == 'success')
+                         {
+                             $('#send_msg')[0].reset();
+                             $('#message_2').text(data);
+                             $("#message_2" ).fadeOut(4000);
+                         }
+                         else if(data == 'error')
+                         {
+                             $('#message_2').text(data);
+                             $("#message_2" ).fadeOut(4000);
+                         }
+                     }
+                   });
+     
+                 });
+     
+                 $('#send_msg_2').on('submit', function (e) {
+     
+                   e.preventDefault();
+     
+                   $.ajax({
+                     type: 'post',
+                     url: 'https://fooderia.in/admin/send_sms_single',
+                     data: $('#send_msg_2').serialize(),
+                     success: function (data) {
+                         alert(data);
+                         if(data == 'success')
+                         {
+                             $('#send_msg_2')[0].reset();
+                             $('#message_3').text(data);
+                             $("#message_3" ).fadeOut(4000);
+                         }
+                         else if(data == 'error')
+                         {
+                             $('#message_3').text(data);
+                             $("#message_3" ).fadeOut(4000);
+                         }
+                     }
+                   });
+     
+                 });
+     
+               });
+     
+              function delete_entry(value)
+               {
+                 var id = value;
+                 var url = "https://fooderia.in/admin/delete"; // the script where you handle the form input.
+                 var table = "media_image";
+                 $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: {delete_id:id,table_name:table}, // serializes the form's elements.
+                        success: function(data)
+                        {
+                            if(data == "success")
+                            {
+                             $('#example').DataTable().ajax.reload();
+                            }
+                            else if(data == "fail")
+                            {
+     
+                            }
+                        }
+                      });
+               }
+     
+               $(document).ready(function() {
+                     $('#example').DataTable( {
+                         dom: 'Bfrtip',
+                         buttons: [
+                             'copy', 'csv', 'excel', 'pdf', 'print'
+                         ],
+                         'ajax': 'https://fooderia.in/admin/get_warranty_content_list',
+                          processing: true
+                     } );
+                 } );
+     
+             </script>
+     
+     
+             
+            <!-- <div class="row" style="display:none;" >
+     
+                 <div class="col-md-12 col-lg-12">
+     
+                     <div class="panel panel-bordered panel-success">
+     
+                         <div class="panel-heading">
+     
+                             <h3 class="panel-title">24 Hours Sale</h3>
+     
+                         </div>
+     
+                         <div class="panel-body">
+     
+                             <div class="text-center">
+     
+                                 <canvas id="gauge4" height="70" class="canvas-responsive"></canvas>
+     
+                                 <p class="h4">
+     
+                                     <span class="label label-success">₹</span>
+     
+                                     <span id="gauge4-txt" class="label label-success">0</span>
+     
+                                 </p>
+     
+                             </div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div>
+     
+             </div>
+     
+             
+     
+             <div class="row" style="display:none;" >
+     
+                 <div class="col-md-4 col-lg-4">
+     
+                     <div class="panel panel-bordered panel-grad2" style="height:205px;">
+     
+                         <div class="panel-heading">
+     
+                             <h3 class="panel-title">Total Vendors</h3>
+     
+                         </div>
+     
+                         <div class="panel-body">
+     
+                             <div class="text-center">
+     
+                                 <h1>
+     
+                                     7
+                                 </h1>
+     
+                             </div>
+     
+                         </div>
+     
+                     </div>
+     
+                     <div class="panel panel-bordered panel-dark" style="height:205px;">
+     
+                         <div class="panel-heading">
+     
+                             <h3 class="panel-title">Pending Vendors</h3>
+     
+                         </div>
+     
+                         <div class="panel-body">
+     
+                             <div class="text-center">
+     
+                                 <h1>
+     
+                                     1
+                                 </h1>
+     
+                             </div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div>
+     
+                 
+     
+                 <div class="col-md-8 col-lg-8">
+     
+                     <div class="panel panel-bordered panel-grad">
+     
+                         <div class="panel-heading">
+     
+                             <h3 class="panel-title">Vendor Stattistics</h3>
+     
+                         </div>
+     
+                         <div class="panel-body">
+     
+                             <div class="text-center">
+     
+                                 <div class="col-md-12 col-lg-12">
+     
+                                     <div class="panel-body">
+     
+                                         <div id="chartdiv5" style="width: 100%; height: 300px;"></div>
+     
+                                     </div>
+     
+                                 </div>
+     
+                             </div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div> 
+     
+             </div>
+     
+             
+     
+             <div class="row"  >
+     
+                 <div class="col-md-6 col-lg-6">
+     
+                     <div class="panel panel-bordered panel-purple">
+     
+                         <h3 class="panel-title" style="border-bottom:1px #9365b8 solid; !important;">
+     
+                             Category Wise Monthly Stock
+                         </h3>
+     
+                         <div class="panel-body">
+     
+                             <div id="chartdiv" style="width: 100%; height: 300px;"></div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div>
+     
+                 <div class="col-md-6 col-lg-6">
+     
+                     <div class="panel panel-bordered panel-black">
+     
+                         <h3 class="panel-title" style="border-bottom:1px #303641 solid; !important;">
+     
+                             Category Wise Monthly Destroy
+                         </h3>
+     
+                         <div class="panel-body">
+     
+                             <div id="chartdiv3" style="width: 100%; height: 300px;"></div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div>
+     
+             </div>
+     
+             
+     
+             <div class="row">
+     
+                 <div class="col-md-6 col-lg-6">
+     
+                     <div class="panel panel-bordered panel-success">
+     
+                         <h3 class="panel-title" style="border-bottom:1px #00a65a solid; !important;">
+     
+                             Category Wise Monthly Sale
+                         </h3>
+     
+                         <div class="panel-body">
+     
+                             <div id="chartdiv2" style="width: 100%; height: 300px;"></div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div>
+     
+                 <div class="col-md-6 col-lg-6">
+     
+                     <div class="panel panel-bordered panel-primary">
+     
+                         <h3 class="panel-title" style="border-bottom:1px #458fd2 solid; !important;">
+     
+                             Category Wise Monthly Grand Profit
+                         </h3>
+     
+                         <div class="panel-body">
+     
+                             <div id="chartdiv4" style="width: 100%; height: 300px;"></div>
+     
+                         </div>
+     
+                     </div>
+     
+                 </div>
+     
+             </div>-->
+     
+         </div>
+        </div>
+<%- include('partials/allbottom.ejs') %>

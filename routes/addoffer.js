@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const locmodel = require('../model/querymodel')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -8,8 +9,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', (req,res,next) => {
-  console.log(req.files)
-  console.log(req.body)
-    
+  message=req.body.message
+  title=req.body.title
+  image=req.files.image.name
+  q="insert into addoffer(title,message,image_name) values (\"" + title + "\",\"" + message + "\",\"" + image + "\")" 
+ locmodel.result(q).then((res) => {
+    res.render("addoffer", {message:"Offer Added"})
+ })
+ .catch((err)=> {
+   res.render('add_offer', {message:"Error while adding offer"})
+ })
+ 
 })
 module.exports = router;

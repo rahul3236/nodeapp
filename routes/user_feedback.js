@@ -10,5 +10,14 @@ router.get('/', function(req, res, next) {
   })
   
 });
+router.get('/:id', function(req, res, next) {
+  q="select * from client_feedback limit" + (parseInt(req.params.id)-1)*10 +"," + parseInt(req.params.id)*10
+  console.log(q)
+  locmodel.result(q).then((result)=> {
+    console.log(result)
+    res.render("user_feedback",{newarray:result})
+  })
+  
+});
 
 module.exports = router;

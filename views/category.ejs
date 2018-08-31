@@ -33,9 +33,9 @@
                                                 <img class="img-md" src="https://fooderia.in/uploads/category_image/category_37.jpg?random=1535388858282" height="100px">  
                              
                            </td><td class="text-right" style="">
-                            <a class="editbutton btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal('edit','Edit Category ( Physical Product )','Successfully Edited!','category_edit','37')" data-original-title="Edit" data-container="body">
+                            <a  id="<%= loc.category_id %>" class="editbutton btn btn-success btn-xs btn-labeled fa fa-wrench" data-toggle="tooltip" onclick="ajax_modal('edit','Edit Category ( Physical Product )','Successfully Edited!','category_edit','37')" data-original-title="Edit" data-container="body">
                                         Edit                    </a>
-                            <a class="deletebutton btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body">
+                            <a  id="<%= loc.category_id %>" class="deletebutton btn btn-danger btn-xs btn-labeled fa fa-trash" data-toggle="tooltip" data-original-title="Delete" data-container="body">
                                     Delete                    </a>
                         </td></tr>
                         <% }); %>
@@ -58,7 +58,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Add Coupon</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" id="addmodalclose" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -91,17 +91,17 @@
                 </div>
             </div>
         </div>
-        <button class="modal-close is-large" aria-label="close" id="addmodalclose"></button>
+        <button class="modal-close is-large" aria-label="close" ></button>
 </div>
               
 
-    <div class=" modal" id="editmodal">
+    <div class=" modal" id="editmodal" >
             <div class="modal-background"></div>
                 <div class="modal-content">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Add Coupon</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button"  id="editmodalclose" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -133,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <button id="editmodalclose"  class="modal-close is-large" aria-label="close"></button>
+                <button   class="modal-close is-large" aria-label="close"></button>
             </div>
 
 
@@ -186,13 +186,14 @@ $("#addmodalclose").on('click', function(){
 })
 
 $("#sendloc").on('click',function(){
+    
     let val = $("#locvalue").val()
-    $.post("/location/addlocation/",
+    $.post("/category/addcategory/",
 {
     val:val
 },
 function (data) {
-$("#showmessage").text("done");
+$("#showmessage").text(data.message);
 $("#addmodal").toggleClass("is-active")
 $("#showdiv").fadeIn()
 setTimeout(() => {
@@ -218,12 +219,12 @@ $("#editmodalclose").on('click', function(){
 $("#editloc").on('click',function(){
     let val = $(".editlocvalue").val()
     let id=$(".editlocvalue").attr('id')
-    $.post("/location/editlocation/" + id,
+    $.post("/category/edit/" + id,
 {
     val:val
 },
 function (data) {
-$("#showmessage").text("done");
+$("#showmessage").text(data.message);
 $("#editmodal").toggleClass("is-active")
 $("#showdiv").fadeIn()
 setTimeout(() => {
@@ -237,7 +238,7 @@ setTimeout(() => {
 $('.deletebutton').on('click', function(){
     alert("clicked")
 let id=$(this).attr('id')
-$.post("/location/delete/" + id,
+$.post("/category/delete/" + id,
 {
     id:id
 },

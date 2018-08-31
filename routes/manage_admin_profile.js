@@ -3,8 +3,12 @@ var router = express.Router();
 const locmodel = require('../model/querymodel')
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  locmodel.result("select * from admin")
+  .then((result)=> {
+    console.log(result)
+    res.render("manage_admin_profile", {newarray:result})
+  })
   
-  res.render('manage_admin_profile' );
 });
 router.post('/managedetails', (req,res,next)=> {
   //res.send("manage details")

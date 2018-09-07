@@ -15,12 +15,13 @@ var manageApp  = require('./routes/manage_app_slider')
 var userFeedback = require('./routes/user_feedback')
 var discountCoupon = require('./routes/discount_coupon')
 var login = require('./routes/login')
+var morgan = require('morgan')
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
+app.use(morgan('combined'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

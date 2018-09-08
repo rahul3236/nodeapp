@@ -20,13 +20,11 @@ router.get('/:id', function(req, res, next) {
 
 });
 router.post('/deleteuserfeedback/', (req,res,next) => {
-    //locmodel.result()
-    //.then((success) => {
-      //res.send({error:err})
-   // })
-   console.log(req.body.locid)
-   res.send(JSON.stringify({success:req.body.locid}))
-})
-
+    locmodel.result("delete from client_feedback where feedback_id = " + req.body.locid)
+    .then((success) => {
+      res.send({error:"err"})
+    })
+    .catch((err)=>console.log(err))
+   })
 
 module.exports = router;

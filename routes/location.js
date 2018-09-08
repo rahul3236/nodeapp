@@ -6,6 +6,7 @@ const locmodel = require('../model/querymodel')
 
 router.get('/', function(req, res, next) {
   locmodel.result('select * from location limit 0,10').then((locs) => {
+    res.header("Access-Control-Allow-Origin", "*");
     //res.send(locs);
     res.send(locs)
   })
@@ -15,37 +16,36 @@ router.get('/:id', (req,res,next) =>{
   q = 'select * from location limit ' + ((parseInt(req.params.id) -1)*10) + "," + 10
   console.log(q)
   locmodel.result(q).then((locs)=>{
+    res.header("Access-Control-Allow-Origin", "*");
     res.send(locs)
   })
 })
 router.post('/editlocation/', (req,res,next) => {
-    //locmodel.result("update location set location_name = " + req.body.value +" where location_id=" + req.body.locid )
-    //then((success)=> {
-      console.log(req.body.value)
-      console.log(req.body.locid)
+    locmodel.result("update location set location_name ='" + req.body.value +"' where location_id=" + req.body.locid )
+    .then((success)=> {
+      console.log(req.body)
       res.send({success:true})
-    //})
-    //.catch((err) => {
-      //res.send({error:err})
-    //})
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 })
 
 router.post('/deletelocation/', (req,res,next) => {
-    //locmodel.result()
-    //.then((success) => {
-      //res.send({error:err})
-   // })
-   console.log(req.body.locid)
-   res.send(JSON.stringify({success:req.body.locid}))
-})
+    locmodel.result("delete from location where location_id = " + req.body.locid)
+    .then((success) => {
+      res.send({success:true})
+    })
+    .catch((err)=>console.log(err))
+   })
 router.post('/addlocation/',(req,res,next) => {
-//  locmodel.result("insert into location (location_name) values (\"" + req.body.val + "\")")
-  //.then((success)=> {
-    console.log(req.body.value);
+    locmodel.result("insert into location (location_name) values (\"" + req.body.val + "\")")
+  .then((success)=> {
+    
     res.send({success:true})
-  //})
-//.catch((err)=> {
-//  res.send({error:err})
-//})
+  })
+.catch((err)=> {
+  res.send({error:err})
+})
 })
 module.exports = router;

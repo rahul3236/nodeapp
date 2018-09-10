@@ -25,7 +25,11 @@ router.post('/deletesales/', (req,res,next) =>{
   //locmodel.result(q).then((locs)=>{
 
     console.log(req.body)
-  })
+})
 
+router.post('/changesales',(req,res,next) => {
+  console.log(req.body)
+  res.send({succes:true})
+})
 
 module.exports = router;

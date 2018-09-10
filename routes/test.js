@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 const locmodel = require('../model/querymodel')
-n="rahul"
-p=123
-locmodel.result("select * from test").then((res)=>console.log(res))
-.catch((err)=> console.log(err))
+const PDFDocumnet  = require('pdfkit')
+let doc  = new PDFDocumnet
+const fs=require('fs')
 
-locmodel.result("insert into test(name,pass) values('" + [n] +"'," + [p] + ")" )
-.then((res)=> console.log(res))
-.catch((err) => console.log(err))
-
-
-locmodel.result("update test set name='nfekljf',pass =" + p + " where id=1" ).then((res)=>console.log(res))
-.catch((err)=>console.log(err))
+let m = new Promise((resolve, reject)=> {
+  resolve(1)
+})
+  m.then((q)=> doc.pipe(fs.createWriteStream('/root/foodere/public/inde.pdf') ))
+  .then(()=>doc.text("jekwfhkew"))
+  .then(() =>doc.end())
+  .then(()=> console.log({success:true}))
+  .catch((err)=> console.log(err))

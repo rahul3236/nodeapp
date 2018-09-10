@@ -9,21 +9,23 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', (req,res,next) => {
-  message=req.body.message
-  title=req.body.title
-  image=req.files.img.name
-  q="insert into addoffer(title,message,image_name) values (\"" + title + "\",\"" + message + "\",\"" + image + "\")"
-locmodel.result(q).then((res) => {
-    res.render("addoffer", {message:"Offer Added"})
+  let message=req.body.message
+  let title=req.body.title
+  let image=req.files.img.name
+  let q="insert into addoffer(title,message,image_name) values ('" + [title] + "','" + message + "','" + image + "')"
+locmodel.result(q)
+.then((resl) => {
     req.files.img.mv(`${__dirname}/${req.files.img.name}.jpg`, function(err) {
       if (err) {
         return res.status(500).send(err);
       }
-  console.log(req.body)
+
  })
+ console.log(resl)
+ res.send(resl)
 })
  .catch((err)=> {
-   res.render('add_offer', {message:"Error while adding offer"})
- })
+   console.log(err)
+   })
 })
 module.exports = router;

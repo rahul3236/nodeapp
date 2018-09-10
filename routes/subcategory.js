@@ -18,10 +18,19 @@ router.get('/:id', (req,res,next) =>{
   })
   .catch((err)=> new Error())
 })
+router.get('/categorylist',(req,res,next)=> {
+  let q = 'select * from category'
+  locmodel.result(q).then((locs) => {
+    console.log(locs)
+    res.send(locs)
+  })
+  .catch((err)=>console.log(err))
+
+})
 
 router.post('/addsubcategory', (req,res,next) =>{
-  locmodel.result("insert into sub_category (sub_category_name, category ,banner) values'"+[req.body.cn]+"','" + [req.body.cd] + "','"+req.files.img.name +"')" )
-  //then((success)=> {
+  locmodel.result("insert into sub_category (sub_category_name, category ,banner) values'"+[req.body.cname]+"','" + [req.body.cdescription] + "','"+req.files.img.name +"')" )
+  .then((success)=> {
     console.log(req.body)
     console.log(req.files)
     //console.log()
@@ -43,20 +52,13 @@ req.files.img.mv(`${__dirname}/${req.files.img.name}.jpg`, function(err) {
   //console.log(util.inspect(req.body.img, {showHidden: false, depth: null}))
 })
 })
-  
-
-router.get('/categorylist',(req,res,next)=> {
-  let q = 'select * from category'
-  locmodel.result(q).then((locs) => {
-    console.log(locs)
-    res.send(locs)
-  })
-  .catch((err)=>console.log(err))
-
+.catch((err) => console.log(err))
 })
+
+
 router.post('/editsubcategory', (req,res,next) =>{
-  locmodel.result("update sub_category set sub_category_name = '" + req.body.cn +"' ,category  = '" + req.body.cd + "', banner= '" +req.files.img.name + "'where category_id =" + req.body.idtoedit)
-  //then((success)=> {
+  locmodel.result("update sub_category set sub_category_name = '" + req.body.cname +"' ,category  = '" + req.body.cdescription + "', banner= '" +req.files.img.name + "'where category_id =" + req.body.idtoedit)
+  .then((success)=> {
     console.log(req.body)
     console.log(req.files)
     //console.log()
@@ -69,6 +71,8 @@ req.files.img.mv(`${__dirname}/${req.files.img.name}.jpg`, function(err) {
 
   res.send({success:true})
 })
+})
+.catch((err)=>console.log(err))
 })
 
 

@@ -16,6 +16,7 @@ var userFeedback = require('./routes/user_feedback')
 var discountCoupon = require('./routes/discount_coupon')
 var customer  = require('./routes/customer')
 var login = require('./routes/login')
+var product = require('./routes/products')
 var morgan = require('morgan')
 const fileUpload = require('express-fileupload');
 var app = express();
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/customer',customer)
+app.use('/product',product)
 //app.use('/users', usersRouter);
 app.use('/category',category)
 app.use('/addOffer',addOffer)

@@ -24,8 +24,8 @@ router.get('/:id', (req,res,next) =>{
   })
 })
 router.post('/editslider/', (req,res,next) => {
-    locmodel.result("update app_slider set slider_name = '" + req.body.locid +"' slider_image  = '" + req.files.img.name + "'where slider_id = " +req.body.locid )
-    //then((success)=> {
+    locmodel.result("update app_slider set slider_name = '" + [req.body.cname] +"', slider_image  = '" + [req.files.img.name] + "' where slider_id = " +[req.body.idtoedit] )
+    .then((success)=> {
       console.log(req.body)
       console.log(req.files)
       //console.log()
@@ -35,10 +35,13 @@ router.post('/editslider/', (req,res,next) => {
     if (err) {
       return res.status(500).send(err);
     }
+    else {
+        res.send({success:true})
+      }
+})
+})
+.catch((err)=> console.log(err))
 
-    res.send({success:true})
-});
-   
       //fs.writeFile('message.jpeg', req.body.img, (err) => {
         //if (err) throw err;
         //console.log('The file has been saved!');
@@ -55,18 +58,21 @@ router.post('/deleteslider/', (req,res,next) => {
     res.send({success:true})
   })
   .catch((err)=>console.log(err))
-  
+
   })
 router.post('/addslider/' , (req,res,next) => {
-  locmodel.result("insert into app_slider (slider_name,slider_image) values ('" + req.body.cname +"','" + req.body.img.name + "')")
+  locmodel.result("insert into app_slider (slider_name,slider_image) values ('" + [req.body.cname] + "','" + [req.body.img.name] + "')")
   .then((success)=> {
-    req.files.img.mv(`${__dirname}/${req.files.img.name}.jpg`, function(err) {
+    req.files.img.mv(`/root/foodere/public/${req.files.img.name}.jpg`, function(err) {
       if (err) {
-        return res.status(500).send(err);
+        console.log(err)
       }
-  
-      res.send({success:true})
-    res.send({success:true})
+      else {
+
+              res.send({success:true})
+            res.send({success:true})
+      }
+
   })
 })
 .catch((err)=> {
